@@ -2,6 +2,7 @@ import cv2.aruco as aruco
 import cv2
 import math
 import collections
+import sys
 
 class Graph:
 	def __init__(self):
@@ -10,7 +11,7 @@ class Graph:
 		self.graph[u].append(v)
 	def getNeighbors(self,node):
 		return self.graph[node]
-	def changeLink(self,n1,n2):
+	def emptyLink(self,n1,n2):
 		self.graph[n1] = []
 		self.graph[n2] = []
 
@@ -205,28 +206,33 @@ while(True):
 	n1 = -1
 	n2 = -1
 	home = -1
+	n3 = -1
 
 	if(grid==36):
 		n1 = 27
 		n2 = 29
 		home = 39
+		n3 = 38
 
 	elif(grid==44):
 		n1 = 53
 		n2 = 51
 		home = 41
+		n3 = 42
 
 	elif(grid==4):
 		n1 = 5
 		n2 = 23
 		home = 31
+		n3 = 22
 
 	elif(grid==76):
 		n1 = 77
 		n2 = 59
 		home = 49
+		n3 = 58
 
-	counter = 0
+	flag = True
 	while True:
 		_,_,start = arucoRead()
 		val = int(input("Roll the die"))
@@ -244,7 +250,19 @@ while(True):
 			if(len(path>=2 and len(path)<l):
 				minpath = path
 				l = len(path)
-
-		for i in range(1,len(minpath)):
+		if(home in minpath):
+			minpath.append(40)
+		for i in range(1,len(minpath),1):
 			move(minpath[i])
-
+			print("Arrived at: ",minpath[i])
+			if(minpath[i]==40):
+				cap.release()
+				cv2.destroyAllWindows()
+				sys.exit("Finished the task!!!")
+		if(flag):
+			if((n1 in minpath[i]) or (n2 in minpath[i])):
+				g.emptyLink(grid,n3)
+				g.addEdge(grid,(grid+n3)/2)
+				g.addEdge(n3,(grid+n3)/2)
+				g.addEdge(n3,home)
+				flag = False
