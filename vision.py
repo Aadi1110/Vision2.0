@@ -23,7 +23,7 @@ class VisionENV():
         Constructor function for building the Vision Environment
         Argumets:
             None
-        Return:
+        Returns:
             None
         """
         self.env = gym.make("vision_arena-v0")
@@ -66,7 +66,7 @@ class VisionENV():
 
     def dist(self,p1,p2):
         """
-        Argument:
+        Arguments:
             Vectors p1 and p2
         Returns:
             Distance between vectors p1 and p2
@@ -75,7 +75,7 @@ class VisionENV():
 
     def ang(self,v,bvec):
         """
-        Argument:
+        Arguments:
             Vectors v and bvec
         Returns:
             Angle between vectors v and bvec
@@ -91,7 +91,7 @@ class VisionENV():
     def rotate(self,tovec):
         """
         Aligns the vector fo the bot with the destination vector
-        Argument:
+        Arguments:
             Destination Vector
         Returns:
             None
@@ -152,7 +152,7 @@ class VisionENV():
     def move(self,toGrid):
         """
         Function to move the bot to given Grid Number
-        Argument:
+        Arguments:
             Destination Grid Number
         Returns:
             None
@@ -190,7 +190,7 @@ class VisionENV():
         def __init__(self):
             """
             Constructor function for initializing our Graph
-            Argument:
+            Arguments:
                 None
             Returns:
                 None
@@ -200,7 +200,7 @@ class VisionENV():
         def addEdge(self,u,v):
             """
             Add edge between vertices u and v
-            Argument:
+            Arguments:
                 Vertices u and v
             Returns:
                 None
@@ -209,7 +209,7 @@ class VisionENV():
             
         def getNeighbors(self,node):
             """
-            Argument:
+            Arguments:
                 Vertex of graph
             Returns:
                 Neighbours of given node
@@ -219,7 +219,7 @@ class VisionENV():
         def emptyLink(self,n1,n2):
             """
             Disconnect vertices n1 and n2 from graph
-            Argument:
+            Arguments:
                 Vertices n1 and n2
             Returns:
                 None
@@ -230,7 +230,7 @@ class VisionENV():
         def bfs(self,graph, start, goal):
             """
             Employ BFS (Breadth First Search) to compute path from one vertex to another in the graph
-            Argument:
+            Arguments:
                 (Graph, Starting Vertex, Destination Vertex)
             Returns:
                 Path from Starting vertex to Destination Vertex
@@ -265,7 +265,7 @@ class VisionENV():
     def extract(self):
         """
         Extract shapes of different colors using segmentation
-        Argument:
+        Arguments:
             None
         Returns:
             Array describing all the shapes present in the arena
@@ -390,28 +390,57 @@ class VisionENV():
             ar[round(c[1]*10/self.width)-1,round(c[0]*10/self.height)-1] = 3
 
         return ar
-        
-bot = VisionENV()
+    
+"""
+Vision Arena can be represented in a grid form as follows
 
-g = bot.Graph()
+|---0---1---2---3---4---5---6---7---8--|
+|---9---x---x---x--13---x---x---x--17--|
+|--18---x--20--21--22--23--24---x--26--|
+|--27---x--29---x--31---x--33---x--35--|
+|--36--37--38--39--40--41--42--43--44--|
+|--45---x--47---x--49---x--51---x--53--|
+|--54---x--56--57--58--59--60---x--62--|
+|--63---x---x---x--67---x---x---x--71--|
+|--72--73--74--75--76--77--78--79--80--|
+
+-> Bot can start from either 4, 36, 44 or 76
+-> Task is said to be accomplished once the bot reaches 40 after completing a clockwise round (w.r.t to the starting position) around the home position (i.e. 40)
+-> 'x' signifies the positions our bot is prohibited to enter
+
+"""     
+bot = VisionENV() # object of class Vision Environment
+g = bot.Graph() # object of class Graph
 """
+Constructing our Graph 
+
+We have built the graph keeping in mind that our bot is allowed only clockwise movement around the home position
 """
-for i in range(8):
+for i in range(8): # first row of outer square
     g.addEdge(i,i+1)
-for i in range(8,72,9):
+    
+for i in range(8,72,9): # last column of outer square
     g.addEdge(i,i+9)
-for i in range(73,81,1):
+    
+for i in range(73,81,1): # last row of outer square
     g.addEdge(i,i-1)
-for i in range(9,73,9):
+    
+for i in range(9,73,9): # first column of outer square
     g.addEdge(i,i-9)
-for i in range(20,24,1):
+    
+for i in range(20,24,1): # first row of inner square
     g.addEdge(i,i+1)
-for i in range(24,52,9):
+    
+for i in range(24,52,9): # last column of inner square
     g.addEdge(i,i+9)
-for i in range(57,61,1):
+    
+for i in range(57,61,1): # last row of inner square
     g.addEdge(i,i-1)
-for i in range(29,57,9):
+    
+for i in range(29,57,9): # first column of inner square
     g.addEdge(i,i-9)
+    
+# selectively adding edges for special cases in regards to the problem statement
     
 g.addEdge(4,13)
 g.addEdge(36,37)
@@ -433,72 +462,61 @@ g.addEdge(67,58)
 i=0
 flag = True
 
-ar = np.zeros((9,9), dtype=int)
+ar = np.zeros((9,9), dtype=int) # array used to represent each shape in the arena
 
 """
 """
-while i<100:
+while i<1e5:
 
-    ar = bot.extract()   
+    ar = bot.extract() # extract shapes from arena 
 
-    shapes = {"TY":4, "SY":5, "CY":6, "TR":1, "SR":2, "CR":3}
+    shapes = {"TR":1, "SR":2, "CR":3,"TY":4, "SY":5, "CY":6} # dictionary of shapes present in the arena
 
-    n1 = -1
-    n2 = -1
-    home = -1
-    n3 = -1
+    n1, n2, n3, home = -1, -1, -1, -1 # home -> stores home position w.r.t staarting color
     
-    _,_,start = bot.arucoRead()
+    _,_,start = bot.arucoRead() # get the starting position of the bot
     
     if(i==0):
+        
         grid = start
         
     if(grid==36):
-        n1 = 27
-        n2 = 29
-        home = 39
-        n3 = 38
+        
+        n1, n2, n3, home = 27, 29, 38, 39
 
     elif(grid==44):
-        n1 = 53
-        n2 = 51
-        home = 41
-        n3 = 42
+        
+        n1, n2, n3, home = 53, 51, 42, 41
 
     elif(grid==4):
-        n1 = 5
-        n2 = 23
-        home = 31
-        n3 = 22
+        
+        n1, n2, n3, home = 5, 23, 22, 31
 
     elif(grid==76):
-        n1 = 75
-        n2 = 57
-        home = 49
-        n3 = 58
+        
+        n1, n2, n3, home = 75, 57, 49, 58
     
-    val = bot.env.roll_dice()
+    val = bot.env.roll_dice() # returns the shape to be visited by our bot next
     print("The value is: ",val)
-    ends = []
-    minpath = []
-    l = 1000
     
+    ends = []
+    minpath = [] # store the path of minimum length from the initial position of the bot to the desired shape
+    l = 1e9
         
     for i in range(9):
         for j in range(9):
             
-            if(ar[i][j]==shapes[val]):
+            if(ar[i][j]==shapes[val]): # store all occurences of the desired shape in ends
                 ends.append(i*9+j)
 
     for node in ends:
         
-        path = g.bfs(g,start,node)
+        path = g.bfs(g,start,node) # get path from initial position of the bot to all occurences of the desired shape
         
         if(len(path)>=2 and (len(path)<l or (home in path and len(path)<=l))):
+            
             minpath = path
             l = len(path)
-            
-    print(start,minpath)
             
     if(home in minpath):
         
@@ -506,21 +524,23 @@ while i<100:
         
     for i in range(1,len(minpath),1):
         
-        bot.move(minpath[i])
+        bot.move(minpath[i]) # move the bot one by one along the most optimal path
         print("Arrived at: ",minpath[i])
-        time.sleep(0.01)
         
         if(minpath[i]==40):
-            sys.exit("Finish")
+            
+            sys.exit("Task Accomplished") # bot reaches home 
             
     if(flag==True):
         
         if((n1 in minpath) or (n2 in minpath)):
             
             g.emptyLink(grid,n3)
+            
             g.addEdge(grid,(grid+n3)/2)
             g.addEdge(n3,(grid+n3)/2)
             g.addEdge(n3,home)
+            
             flag = False
    
     p.stepSimulation()
