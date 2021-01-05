@@ -16,7 +16,10 @@
 </ol>
 
 <center>
-<img src = "media/arena.gif" alt = "Arena" width = "400" height = "400">
+<img src = "media/arena.gif" alt = "Arena" width = "400">
+</center>
+<center>
+  <img src = "media/husky.gif" alt = "Bot" width = "400"> 
 </center>
 
 <h3> Task To-do: </h3>
@@ -41,10 +44,15 @@
 <br>
 <br>
 <h2> The Approach </h2>
-<b> Computer Vision </b> to process images, <b> Breadth-first search </b> to track the path and <b> Pybullet </b> to simulate the bot, are the major things used to complete the task. <br> 
+<b> Computer Vision </b> to process images, <b> Breadth-first search </b> to trace the path and <b> Pybullet </b> to simulate the bot, are the major things used to complete the task. <br> 
 First, a graph is created, in which edges are added in the direction of allowed movement. <br>
-Aruco --- <br>
-Then Breadth-first search is used to determine the path from the current position to the next destination. <br>
+Then, the shape and color in each grid of the arena is detected using several techniques such as masking, erosion, dilation and contour approximation.
+Aruco - It is used to determine the current position of the bot at that instant. <br>
+A die is rolled to give the shape-color combination to the bot in order to find out the next destination. <br>
+Then, Breadth-first search is used to determine the shortest path from the current position to the next destination. <br>
+After that, two vectors are created providing the positions, along with the angles, of the bot and the destination grid. Various custom-made functions, such as dist(), ang(), rotate() and move(), are employed in order to facilitate the movement of the bot. <br>
+After the bot crosses the first grid, the graph edges are altered in a way that the bot enters the home after completion of a clockwise round. <br>
+The task is completed after the bot reaches the central home grid.
  
 </body>
 </html>
