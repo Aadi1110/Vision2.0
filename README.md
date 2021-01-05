@@ -16,7 +16,7 @@
 </ol>
 
 <center>
-<img src = "k.png" alt = "Arena" width = "400" height = "400">
+<img src = "media/arena.gif" alt = "Arena" width = "400" height = "400">
 </center>
 
 <h3> Task To-do: </h3>
