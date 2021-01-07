@@ -21,7 +21,7 @@ class VisionENV():
     def __init__(self):
         """
         Constructor function for building the Vision Environment
-        Argumets:
+        Arguments:
             None
         Returns:
             None
@@ -40,10 +40,10 @@ class VisionENV():
 
     def arucoRead(self):
         """
-        Argumets:
+        Arguments:
             None
         Returns:
-            (Center of Bot, Grid Number of Bot, Vector for Bot's movement)
+            (Center of Bot, Vector for Bot's movement, Grid Number of Bot)
         """
         
         img = self.env.camera_feed(is_flat=True)
@@ -90,7 +90,7 @@ class VisionENV():
 
     def rotate(self,tovec):
         """
-        Aligns the vector fo the bot with the destination vector
+        Aligns the vector of the bot with the destination vector
         Arguments:
             Destination Vector
         Returns:
@@ -157,8 +157,13 @@ class VisionENV():
         Returns:
             None
         """
-        tovec = np.array([(toGrid%9+1)*self.height/10, (toGrid//9+1)*self.width/10])
+        tovec = np.array([(toGrid%9+1)*self.height/10, (toGrid//9+1)*self.width/10]) #vector of destination grid
         
+        """
+        If tovec is in the topmost row, then its y-coordinate is shifted 7 units to the top.
+        If tovec is in the leftost row, its y-coordinate is shifted 7 units to the left.
+        This is done to prevent the bot from moving in the black region due to imperfect camera alignment.
+        """
         if(toGrid>=0 and toGrid<9):
             tovec[1] = tovec[1]-7
             
@@ -298,7 +303,7 @@ class VisionENV():
         for cnt in contoursY:
             
             eps = 0.02*cv2.arcLength(cnt, True)
-            approx = cv2.approxPolyDP(cnt, eps, True)
+            approx = cv2.approxPolyDP(cnt, eps, True) #contour approximation
             
             if(len(approx)==3):
                 
@@ -308,7 +313,7 @@ class VisionENV():
                     
                     cx = (M['m10']/M['m00'])
                     cy = (M['m01']/M['m00'])
-                    cfY1.append([cx,cy])
+                    cfY1.append([cx,cy]) #[cx,cy] is the center of the grid under consideration
                     
             elif(len(approx)==4):
                 
@@ -329,7 +334,7 @@ class VisionENV():
                     cfY3.append([cx,cy])
 
         for c in cfY1:
-            ar[round(c[1]*10/self.width)-1,round(c[0]*10/self.height)-1] = 4
+            ar[round(c[1]*10/self.width)-1,round(c[0]*10/self.height)-1] = 4 # "round(c[1]*10/self.width)-1,round(c[0]*10/self.height)-1" gives the x and y grid number(between 1 and 9) respectively
         for c in cfY2:
             ar[round(c[1]*10/self.width)-1,round(c[0]*10/self.height)-1] = 5
         for c in cfY3:
@@ -472,8 +477,12 @@ while i<1e5:
 
     shapes = {"TR":1, "SR":2, "CR":3,"TY":4, "SY":5, "CY":6} # dictionary of shapes present in the arena
 
-    n1, n2, n3, home = -1, -1, -1, -1 # home -> stores home position w.r.t staarting color
-    
+    n1, n2, n3, home = -1, -1, -1, -1 
+    """
+    n1,n2 -> stores the next grid in the inner and outer paths respectively w.r.t starting color
+    n3 -> stores the grid that connects the inner and outer paths w.r.t starting color
+    home -> stores the grid prior to home grid(i.e. 40) w.r.t starting color
+    """
     _,_,start = bot.arucoRead() # get the starting position of the bot
     
     if(i==0):
@@ -534,9 +543,11 @@ while i<1e5:
     if(flag==True):
         
         if((n1 in minpath) or (n2 in minpath)):
-            
-            g.emptyLink(grid,n3)
-            
+            """
+            Remove the link between starting grid and n3 after the bot crosses first grid and creating the link between grids in the home path so that the bot is prohibited from moving forward after one round
+            """
+            g.emptyLink(grid,n3) 
+          
             g.addEdge(grid,(grid+n3)/2)
             g.addEdge(n3,(grid+n3)/2)
             g.addEdge(n3,home)
