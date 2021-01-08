@@ -544,7 +544,8 @@ while i<1e5:
         
         if((n1 in minpath) or (n2 in minpath)):
             """
-            Remove the link between starting grid and n3 after the bot crosses first grid and creating the link between grids in the home path so that the bot is prohibited from moving forward after one round
+            Remove the link between starting grid and n3 after the bot crosses first grid and creating the link 
+            between grids in the home path so that the bot is prohibited from moving forward after one round
             """
             g.emptyLink(grid,n3) 
           
