@@ -332,9 +332,12 @@ class VisionENV():
                     cx = (M['m10']/M['m00'])
                     cy = (M['m01']/M['m00'])
                     cfY3.append([cx,cy])
-
+                    
+        """
+        round(c[1]*10/self.width)-1,round(c[0]*10/self.height)-1" gives the x and y grid number(between 1 and 9) respectively
+        """
         for c in cfY1:
-            ar[round(c[1]*10/self.width)-1,round(c[0]*10/self.height)-1] = 4 # "round(c[1]*10/self.width)-1,round(c[0]*10/self.height)-1" gives the x and y grid number(between 1 and 9) respectively
+            ar[round(c[1]*10/self.width)-1,round(c[0]*10/self.height)-1] = 4
         for c in cfY2:
             ar[round(c[1]*10/self.width)-1,round(c[0]*10/self.height)-1] = 5
         for c in cfY3:
@@ -475,7 +478,7 @@ while i<1e5:
 
     ar = bot.extract() # extract shapes from arena 
 
-    shapes = {"TR":1, "SR":2, "CR":3,"TY":4, "SY":5, "CY":6} # dictionary of shapes present in the arena
+    shapes = {"TR":1, "SR(":2, "CR":3,"TY":4, "SY":5, "CY":6} # dictionary of shapes present in the arena
 
     n1, n2, n3, home = -1, -1, -1, -1 
     """
@@ -503,10 +506,13 @@ while i<1e5:
 
     elif(grid==76):
         
-        n1, n2, n3, home = 75, 57, 49, 58
+        n1, n2, n3, home = 75, 57, 58, 49
+        
+        
+    print("-"*20)
     
     val = bot.env.roll_dice() # returns the shape to be visited by our bot next
-    print("The value is: ",val)
+    print(" Destination Shape : ",val)
     
     ends = []
     minpath = [] # store the path of minimum length from the initial position of the bot to the desired shape
@@ -539,6 +545,8 @@ while i<1e5:
         if(minpath[i]==40):
             
             sys.exit("Task Accomplished") # bot reaches home 
+            
+    print("-"*20)
             
     if(flag==True):
         
