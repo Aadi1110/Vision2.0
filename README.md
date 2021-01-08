@@ -32,6 +32,8 @@
     5. This continues till the <b>bot has completed a full round around the center</b>, then it should move to home via the connecting paths that it started on. <br>
 6. On reaching home the bot should signal that it has finished the task. <br>
     
+<br><br>
+    
 <p align=center>
     <img align=center src = "media/arena.gif" alt = "Arena" width = "400">
     <img align=center src = "media/husky.gif" alt = "Bot" width = "400"> 
