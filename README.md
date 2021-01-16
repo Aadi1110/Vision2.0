@@ -9,15 +9,16 @@
     
 <h3> Problem Statement</h3>
 
-1. There are <b>2 paths</b> in our arena (see above) (<i>inner</i> and <i>outer</i> square) and there are <b>4 connecting paths</b> of different colours joining them. <br>
-2. Bot can change from outer path to inner path or vice versa. Bot is allowed to move in <b> clockwise direction </b> only. The portion of the arena in <b> black colour </b> is restricted for the movement of the bot. <br>
-3. There will be <b>3 shapes</b> (<i>square, circle</i> and <i>triangle</i>) of <b>2 different colours</b>, distinguishing each block in 6 different ways. <br>
-4. On the outermost path there will be <b>4 black arrows</b> at the end of connecting paths pointing in clockwise direction. These arrows mark the <b> starting zone </b> where the bot will be placed initially on any one of the arrows. <br>
-5. The Centre of the arena is the <b>home zone</b>. The bot has to traverse the arena, complete a full round and finish at the home zone. <br>
+1. There are <b>2 paths</b> in our arena (<i>inner</i> and <i>outer</i> square) with <b>4 connecting paths</b> of different colours joining them. <br>
+2. Bot can change from outer path to inner path or vice versa. Bot is allowed to move in <b> clockwise direction </b> only. 
+3. The portion of the arena in <b> black colour </b> is restricted for the movement of the bot. <br>
+4. There will be <b>3 shapes</b> (<i>square, circle</i> and <i>triangle</i>) of <b>2 different colours</b> (<i>red</i> and <i>yellow</i>), distinguishing each block in 6 different ways. <br>
+5. On the outermost path there will be <b>4 black arrows</b> at the end of connecting paths pointing in clockwise direction. These arrows mark the <b> starting zone </b> where the bot will be placed initially on any one of the arrows. <br>
+6. The centre of the arena is the <b>home zone</b>. The bot has to traverse the arena, complete a full round in a clockwise manner and finish at the home zone. <br>
 
 <h3> Task To Do</h3>
 
-1. The bot is placed at one of the <b>starting zones</b>. <br>
+1. The bot is placed on one of the <b>starting zones</b> (represented by 4 black arrows). <br>
 2. An abbreviation which associate to specific colour and shape. <br>
   <ul>
    - <b> TR </b> for Red Triangle. <br>
@@ -27,12 +28,10 @@
    - <b> SY </b> for Yellow Square. <br>
    - <b> CY </b> for Yellow Circle. <br>
  </ul>
-3. On start of each turn, a function returns a random shape from the list above.The bot must then find the closest block (with the corresponding shape) which it can reach following a clockwise path. <br>
+3. On start of each turn, a function returns a **random shape-color** combination from the list above.The bot must then find the closest block (with the corresponding shape) which it can reach following a clockwise path. <br>
 4. As soon as the bot stops moving, bot has to ask for input using the function provided. <br>
-    5. This continues till the <b>bot has completed a full round around the center</b>, then it should move to home via the connecting paths that it started on. <br>
+5. This continues till the <b>bot has completed a full round around the center</b>, then it should move to home via the connecting paths that it started on. <br>
 6. On reaching home the bot should signal that it has finished the task. <br>
-    
-<br>
     
 <p align=center>
     <img align=center src = "media/arena.gif" alt = "Arena" width = "400">
