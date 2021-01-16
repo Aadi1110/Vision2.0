@@ -44,7 +44,7 @@
 2. First, a <b>directed graph</b> is created, in which edges are added in the direction of allowed movement. <br>
 3. <b>Shape</b> and <b>Color</b> in each grid of the arena is detected using several techniques such as masking, erosion, dilation and contour approximation.<br>
 4. A function (<code>roll_dice</code>) returns a <i>shape-color</i> combination in order to figure out the next destination. <br>
-5. Then, <b>BFS</b> (<i>Breadth First Search</i>) is used to determine all possible paths from the current position to the next destination. <br> Among the paths secured, one with **minimum lenght** is considered
+5. Then, <b>BFS</b> (<i>Breadth First Search</i>) is used to determine all possible paths from the current position to the next destination. Among the paths secured, one with **minimum lenght** is considered
 6. Two <b>vectors</b> are created providing the positions, along with the angles, of the bot and the destination grid. Various custom-made functions, such as <code>dist()</code>, <code>ang()</code>, <code>rotate()</code> and <code>move()</code>, are employed in order to facilitate the movement of the bot. <br>
 7. After the bot crosses the first grid, the <i>graph edges are altered</i> in a way that the bot enters the home after completion of a clockwise round and doesn't retrace the previous path.The task is completed after the bot reaches the central home grid.<br>
 8. Video of our run can be found [here](https://youtu.be/CxlYF0vOuJw)
