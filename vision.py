@@ -27,7 +27,7 @@ class VisionENV():
             None
         """
         self.env = gym.make("vision_arena-v0")
-        self.img = self.env.camera_feed(is_flat=True)
+        self.img = self.env.camera_feed(is_flat=True) # top view of arena
         
         self.width, self.height = int(self.img.shape[1]), int(self.img.shape[0])
         """
@@ -35,8 +35,8 @@ class VisionENV():
         s2 -> maximum value of translational speed
         ka, kt -> PID parameters
         """
-        self.s1, self.s2 = 250, 350
-        self.ka, self.kt = 0.8, 1.0
+        self.s1, self.s2 = 360, 480
+        self.ka, self.kt = 0.7, 1.0
 
     def arucoRead(self):
         """
@@ -117,14 +117,14 @@ class VisionENV():
                         for i in range(sr):
                             
                             p.stepSimulation()
-                            self.env.move_husky(-1,1,-1,1) # move left
+                            self.env.move_husky(-0.8,1,-0.8,1) # move left
         
                     else:
                         
                         for i in range(sr):
                             
                             p.stepSimulation()
-                            self.env.move_husky(-0.6,1,-0.6,1) # move left
+                            self.env.move_husky(-0.5,1,-0.5,1) # move left
                 else:
                     
                     if(angle<-90):
@@ -132,14 +132,14 @@ class VisionENV():
                         for i in range(sr):
                             
                             p.stepSimulation()
-                            self.env.move_husky(1,-1,1,-1) # move right
+                            self.env.move_husky(1,-0.8,1,-0.8) # move right
         
                     else:
                         
                         for i in range(sr):
                             
                             p.stepSimulation()
-                            self.env.move_husky(1,-0.6,1,-0.6) # move right
+                            self.env.move_husky(1,-0.5,1,-0.5) # move right
             else:
                 
                 for i in range(self.s1):
@@ -165,10 +165,10 @@ class VisionENV():
         This is done to prevent the bot from moving in the black region due to imperfect camera alignment.
         """
         if(toGrid>=0 and toGrid<9):
-            tovec[1] = tovec[1]-7
+            tovec[1] = tovec[1]
             
         if(toGrid%9==0):
-            tovec[0] = tovec[0]-7
+            tovec[0] = tovec[0]
             
         img = self.env.camera_feed(is_flat=True)
         f=1
@@ -238,7 +238,7 @@ class VisionENV():
             Arguments:
                 (Graph, Starting Vertex, Destination Vertex)
             Returns:
-                Path from Starting vertex to Destination Vertex
+                Path from Starting Vertex to Destination Vertex
             """
             explored = []
             queue = [[start]]
@@ -291,7 +291,7 @@ class VisionENV():
         maskY = cv2.inRange(hsv,lY,uY)
         kernel = np.ones((1,1), np.uint8)
         
-        erY = cv2.erode(maskY, kernel, iterations = 1) # erosion and dilation 
+        erY = cv2.erode(maskY, kernel, iterations = 1) # erosion and dilation for denoising
         dilY = cv2.dilate(erY, kernel, iterations = 1)
 
         contoursY,_ = cv2.findContours(dilY, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) 
@@ -348,7 +348,7 @@ class VisionENV():
         
         maskR = cv2.inRange(hsv,lR,uR)
         
-        erR = cv2.erode(maskR, kernel, iterations = 1) # erosion and dilation
+        erR = cv2.erode(maskR, kernel, iterations = 1) # erosion and dilation for denoising
         dilR = cv2.dilate(erR, kernel, iterations = 1)
         
         contoursR,_ = cv2.findContours(dilR, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -474,11 +474,11 @@ ar = np.zeros((9,9), dtype=int) # array used to represent each shape in the aren
 
 """
 """
-while i<1e5:
+while True:
 
     ar = bot.extract() # extract shapes from arena 
 
-    shapes = {"TR":1, "SR(":2, "CR":3,"TY":4, "SY":5, "CY":6} # dictionary of shapes present in the arena
+    shapes = {"TR":1, "SR":2, "CR":3,"TY":4, "SY":5, "CY":6} # dictionary of shapes present in the arena
 
     n1, n2, n3, home = -1, -1, -1, -1 
     """
@@ -511,8 +511,10 @@ while i<1e5:
         
     print("-"*20)
     
+    desc = {"TR":"Red Triangle","SR":"Red Square","CR":"Red Circle","TY":"Yellow Triangle","SY":"Yellow Square","CY":"Yellow Circle"}
+    
     val = bot.env.roll_dice() # returns the shape to be visited by our bot next
-    print(" Destination Shape : ",val)
+    print("Destination Shape : ",desc[val],'\n')
     
     ends = []
     minpath = [] # store the path of minimum length from the initial position of the bot to the desired shape
@@ -536,6 +538,8 @@ while i<1e5:
     if(home in minpath):
         
         minpath.append(40)
+        
+    print("Path :",minpath,'\n')
         
     for i in range(1,len(minpath),1):
         
@@ -564,5 +568,3 @@ while i<1e5:
             flag = False
    
     p.stepSimulation()
-    
-    i+=1
