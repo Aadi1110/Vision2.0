@@ -94,7 +94,7 @@
     <img align=center src = "media/arena.gif" alt = "Arena" width = "400">
     <img align=center src = "media/husky.gif" alt = "Bot" width = "400"> 
 </p>
-</br>
+
 <h3>Team</h3>
     
 <table>
