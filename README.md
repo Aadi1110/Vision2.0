@@ -3,7 +3,7 @@
     
 <h1 align=center> Vision 2.0 </h1>
     
-<h5 align=center><em>Computer Vision based event organised by Robotics Club IIT (BHU) Varanasi</em></h5><br>
+<h4 align=center><em>Computer Vision based event organised by Robotics Club IIT (BHU) Varanasi</em></h4><br>
     
 <p align=center>
     <img align=center src="media/bot-with-arena.png">
