@@ -68,7 +68,7 @@
          <img src="https://i.gyazo.com/32ee8196e737e9acf97434205d7a0445.png" width="100px;" alt=""/>
          <br />
          <sub>
-             <b>YT : <em>Yellow Triangle</em></b>
+             <b>TY : <em>Yellow Triangle</em></b>
          </sub>
       <br />
    </td>
