@@ -28,7 +28,7 @@
    - <b> SY </b> for Yellow Square. <br>
    - <b> CY </b> for Yellow Circle. <br>
  </ul>
-3. On start of each turn, a function returns a **random shape-color** combination from the list above.The bot must then find the closest block (with the corresponding shape) which it can reach following a clockwise path. <br>
+3. On start of each turn, a function returns a <b>random shape-color</b> combination from the list above.The bot must then find the closest block (with the corresponding shape) which it can reach following a clockwise path. <br>
 4. As soon as the bot stops moving, bot has to ask for input using the function provided. <br>
 5. This continues till the <b>bot has completed a full round around the center</b>, then it should move to home via the connecting paths that it started on. <br>
 6. On reaching home the bot should signal that it has finished the task. <br>
