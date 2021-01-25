@@ -81,7 +81,7 @@
 5. This continues till the <b>bot has completed a full round around the center</b>, then it should move to home via the connecting paths that it started on. <br>
 6. On reaching home the bot should signal that it has finished the task. <br>
     
-<h3> Our Approach </h3>
+<h3 align=center> Our Approach </h3>
     
 1. We used <b> Computer Vision</b> for <i>image segmentation</i> i.e. extracting shapes of different colors from the arena. Applied <b>Breadth First Search</b> algorithm (on a customly designed <i>directed graph</i>) to trace path from the current position of the bot to all occurences of the corresponding shape in the arena. From all the paths secured above, one with minimum length was considered. Popular physics engine <b>PyBullet</b> was utilized for simulating our bot on the arena. <b>Aruco Marker</b> was used to determine the current position of the bot at any instant. <br>
 2. First, a <b>directed graph</b> is created, in which edges are added in the direction of allowed movement. <br>
