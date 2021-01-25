@@ -6,9 +6,9 @@
 <h4 align=center><em>Computer Vision based event organised by Robotics Club of IIT (BHU) Varanasi</em></h4><br>
     
 <p align=center>
-    <img align=center src = "media/arena.gif" alt = "Arena" width = "280">
-    <img align=center src="media/bot-with-arena.png" width="280">
-    <img align=center src = "media/husky.gif" alt = "Bot" width = "280"> 
+    <img align=center src = "media/arena.gif" alt = "Arena" width = "250">
+    <img align=center src="media/bot-with-arena.png" width="250">
+    <img align=center src = "media/husky.gif" alt = "Bot" width = "250"> 
 </p>
     
 <h3> Problem Statement</h3>
