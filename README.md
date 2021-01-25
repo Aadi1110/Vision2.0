@@ -6,7 +6,9 @@
 <h4 align=center><em>Computer Vision based event organised by Robotics Club of IIT (BHU) Varanasi</em></h4><br>
     
 <p align=center>
-    <img align=center src="media/bot-with-arena.png">
+    <img align=center src = "media/arena.gif" alt = "Arena" width = "300">
+    <img align=center src="media/bot-with-arena.png" width="300">
+    <img align=center src = "media/husky.gif" alt = "Bot" width = "300"> 
 </p>
     
 <h3> Problem Statement</h3>
@@ -23,7 +25,7 @@
 1. The bot is placed on one of the <b>starting zones</b> (represented by 4 black arrows). <br>
 2. An abbreviation which associate to specific colour and shape. <br>
 
-<table>
+<table align=center>
    <td align="center">
          <img src="https://i.gyazo.com/895b7ba241c10848fb4b664a480a36bf.png" width="100px;" alt=""/>
          <br />
@@ -79,21 +81,17 @@
 5. This continues till the <b>bot has completed a full round around the center</b>, then it should move to home via the connecting paths that it started on. <br>
 6. On reaching home the bot should signal that it has finished the task. <br>
     
-<h3 align=center> Our Approach </h3>
+<h3> Our Approach </h3>
     
-1. We used <b> Computer Vision</b> for <i>image segmentation</i> i.e. extracting shapes of different colors from the arena. Applied <b>Breadth First Search</b> (<em>BFS</em>) algorithm (on a customly designed <i>directed graph</i>) to trace path from the current position of the bot to all occurences of the corresponding shape in the arena. From all the paths secured above, one with minimum length was considered. Popular physics engine <b>PyBullet</b> was utilized for simulating our bot on the arena. <b>Aruco Marker</b> was used to determine the current position of the bot at any instant. <br>
+1. We used <b> Computer Vision</b> for <i>image segmentation</i> i.e. extracting shapes of different colors from the arena. Applied <b>Breadth First Search</b> algorithm (on a customly designed <i>directed graph</i>) to trace path from the current position of the bot to all occurences of the corresponding shape in the arena. From all the paths secured above, one with minimum length was considered. Popular physics engine <b>PyBullet</b> was utilized for simulating our bot on the arena. <b>Aruco Marker</b> was used to determine the current position of the bot at any instant. <br>
 2. First, a <b>directed graph</b> is created, in which edges are added in the direction of allowed movement. <br>
 3. <b>Shape</b> and <b>Color</b> in each grid of the arena is detected using several techniques such as masking, erosion, dilation and contour approximation.<br>
-4. A function (<code>roll_dice</code>) returns a <i>shape-color</i> combination to the bot in order to figure out the next destination. <br>
-5. Then, <b>BFS</b> is used to determine the shortest path from the current position to the next destination. <br>
+4. A function (<code>roll_dice</code> in our case) returns a <i>shape-color</i> combination to the bot in order to figure out the next destination to visit. <br>
+5. Then, <b>BFS</b> (<i>Breadth First Search</i>) is used to determine the all possible paths from the current position to the next destination. Among the paths secured, one with minimum length is considered for traversal <br>
 6. Two <b>vectors</b> are created providing the positions, along with the angles, of the bot and the destination grid. Various custom-made functions, such as <code>dist()</code>, <code>ang()</code>, <code>rotate()</code> and <code>move()</code>, are employed in order to facilitate the movement of the bot. <br>
 7. After the bot crosses the first grid, the <i>graph edges are altered</i> in a way that the bot enters the home after completion of a clockwise round and doesn't retrace the previous path.The task is completed after the bot reaches the central home grid.<br>
 8. Video of our run can be found [here](https://youtu.be/CxlYF0vOuJw)
 <br>
-<p align=center>
-    <img align=center src = "media/arena.gif" alt = "Arena" width = "400">
-    <img align=center src = "media/husky.gif" alt = "Bot" width = "400"> 
-</p>
 
 <h3>Team</h3>
     
