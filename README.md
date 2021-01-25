@@ -83,7 +83,7 @@
     
 <h3 align=center> Our Approach </h3>
     
-1. We used <b> Computer Vision</b> for <i>image segmentation</i> i.e. extracting shapes of different colors from the arena. Applied <b>Breadth First Search</b> algorithm (on a customly designed <i>directed graph</i>) to trace path from the current position of the bot to all occurences of the corresponding shape in the arena. From all the paths secured above, one with minimum length was considered. Popular physics engine <b>PyBullet</b> was utilized for simulating our bot on the arena. <b>Aruco Marker</b> was used to determine the current position of the bot at any instant. <br>
+1. We used <b> Computer Vision</b> for <i>image segmentation</i> i.e. extracting shapes of different colors from the arena. Used <b>Breadth First Search</b> algorithm (on a customly designed <i>directed graph</i>) to trace path from the current position of the bot to all occurences of the corresponding shape in the arena. From all the paths secured above, one with minimum length was considered. Popular physics engine <b>PyBullet</b> was utilized for simulating our bot on the arena. <b>Aruco Marker</b> was used to determine the current position of the bot at any instant. <br>
 2. First, a <b>directed graph</b> is created, in which edges are added in the direction of allowed movement. <br>
 3. <b>Shape</b> and <b>Color</b> in each grid of the arena is detected using several techniques such as masking, erosion, dilation and contour approximation.<br>
 4. A function (<code>roll_dice</code> in our case) returns a <i>shape-color</i> combination to the bot in order to figure out the next destination to visit. <br>
