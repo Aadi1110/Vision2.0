@@ -6,9 +6,9 @@
 <h4 align=center><em>Computer Vision based event organised by Robotics Club of IIT (BHU) Varanasi</em></h4><br>
     
 <p align=center>
-    <img align=center src = "media/arena.gif" alt = "Arena" width = "300">
-    <img align=center src="media/bot-with-arena.png" width="300">
-    <img align=center src = "media/husky.gif" alt = "Bot" width = "300"> 
+    <img align=center src = "media/arena.gif" alt = "Arena" width = "280">
+    <img align=center src="media/bot-with-arena.png" width="280">
+    <img align=center src = "media/husky.gif" alt = "Bot" width = "280"> 
 </p>
     
 <h3> Problem Statement</h3>
@@ -91,7 +91,6 @@
 6. Two <b>vectors</b> are created providing the positions, along with the angles, of the bot and the destination grid. Various custom-made functions, such as <code>dist()</code>, <code>ang()</code>, <code>rotate()</code> and <code>move()</code>, are employed in order to facilitate the movement of the bot. <br>
 7. After the bot crosses the first grid, the <i>graph edges are altered</i> in a way that the bot enters the home after completion of a clockwise round and doesn't retrace the previous path.The task is completed after the bot reaches the central home grid.<br>
 8. Video of our run can be found [here](https://youtu.be/CxlYF0vOuJw)
-<br>
 
 <h3>Team</h3>
     
