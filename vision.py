@@ -478,7 +478,7 @@ while i<1e5:
 
     ar = bot.extract() # extract shapes from arena 
 
-    shapes = {"TR":1, "SR(":2, "CR":3,"TY":4, "SY":5, "CY":6} # dictionary of shapes present in the arena
+    shapes = {"TR":1, "SR":2, "CR":3,"TY":4, "SY":5, "CY":6} # dictionary of shapes present in the arena
 
     n1, n2, n3, home = -1, -1, -1, -1 
     """
